@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,8 +15,11 @@ import { motion } from "framer-motion";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] as const },
+  },
 };
 
 const containerVariants = {
@@ -32,18 +37,13 @@ const itemVariants = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: "easeOut" },
+    transition: { duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] as const },
   },
 };
 
 const MotionBox = motion(Box);
 const MotionVStack = motion(VStack);
 const MotionGrid = motion(Grid);
-
-export const metadata = {
-  title: "Ordyn Soap Bar - unveil.skin",
-  description: "Gentle, fragrance-light cleanse for everyday skin. No fuss. No film. Just clean.",
-};
 
 export default function SoapBarPage() {
   return (

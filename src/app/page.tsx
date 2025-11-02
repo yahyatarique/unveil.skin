@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,8 +17,11 @@ import { motion } from "framer-motion";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] as const },
+  },
 };
 
 const containerVariants = {
@@ -34,7 +39,7 @@ const itemVariants = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] as const },
   },
 };
 
@@ -135,20 +140,18 @@ export default function Home() {
         </MotionBox>
 
         {/* Product Preview */}
-        <MotionBox
-          id="products"
-          mb={20}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
-        >
+        <Box id="products" mb={20}>
           <Grid
             templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
             gap={{ base: 12, md: 16 }}
           >
             {/* Soap Bar */}
-            <MotionBox variants={itemVariants}>
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <Link href="/products/soap-bar">
                 <Box
                   role="group"
@@ -190,7 +193,12 @@ export default function Home() {
             </MotionBox>
 
             {/* Sunscreen */}
-            <MotionBox variants={itemVariants}>
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               <Link href="/products/sunscreen">
                 <Box
                   role="group"
@@ -231,7 +239,7 @@ export default function Home() {
               </Link>
             </MotionBox>
           </Grid>
-        </MotionBox>
+        </Box>
 
         {/* Coming Soon Footer */}
         <MotionBox
