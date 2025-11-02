@@ -19,6 +19,8 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, EmailIcon, ExternalLinkIcon, PhoneIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import WaitlistForm from "@/components/WaitlistForm";
 
 const fadeInUp = {
@@ -117,22 +119,30 @@ const MotionVStack = motion(VStack);
 const MotionFlex = motion(Flex);
 
 export default function Home() {
+  const [logoSrc, setLogoSrc] = useState("/Logo.svg"); // Default to light mode for SSR
+  const resolvedLogoSrc = useColorModeValue("/Logo.svg", "/Logo_Dark.svg");
+  
+  useEffect(() => {
+    // Update logo after hydration to match client theme
+    setLogoSrc(resolvedLogoSrc);
+  }, [resolvedLogoSrc]);
+  
   return (
     <Box minH="100vh" className="bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-black dark:via-zinc-950 dark:to-zinc-900">
       {/* Header */}
       <Box as="header" borderBottom="1px" className="border-zinc-200 dark:border-zinc-800">
         <Container maxW="7xl" px={{ base: 4, md: 6 }} py={6}>
-          <Heading
-            as="h1"
-            fontSize="2xl"
-            fontWeight="bold"
-            letterSpacing="tight"
-            className="text-black dark:text-white"
-          >
-            unveil<Text as="span" className="text-zinc-400 dark:text-zinc-600">
-              .skin
-            </Text>
-          </Heading>
+          <Link href="/">
+            <Image
+              src={logoSrc}
+              alt="unveil.skin"
+              width={180}
+              height={53}
+              priority
+              style={{ height: '32px', width: 'auto' }}
+              className="h-8 w-auto"
+            />
+          </Link>
         </Container>
       </Box>
 
@@ -154,7 +164,8 @@ export default function Home() {
             inset={0}
             pointerEvents="none"
             opacity={0.6}
-            className="bg-[radial-gradient(circle_at_top,_rgba(252,231,206,0.55),_transparent_55%)] dark:bg-[radial-gradient(circle_at_top,_rgba(124,58,237,0.18),_transparent_60%)]"
+            style={{ background: 'radial-gradient(circle at top, rgba(200, 141, 141, 0.15), transparent 55%)' }}
+            className="dark:bg-[radial-gradient(circle_at_top,_rgba(200,141,141,0.18),_transparent_60%)]"
           />
           <MotionBox
             position="absolute"
@@ -163,7 +174,8 @@ export default function Home() {
             w={{ base: "48", md: "64" }}
             h={{ base: "48", md: "64" }}
             borderRadius="full"
-            className="bg-amber-200/40 dark:bg-purple-700/20"
+            style={{ backgroundColor: 'rgba(200, 141, 141, 0.1)' }}
+            className="dark:bg-[rgba(200,141,141,0.15)]"
             filter="blur(60px)"
             variants={floatInPlace}
             animate="animate"
@@ -187,7 +199,8 @@ export default function Home() {
                   fontWeight="semibold"
                   letterSpacing="wider"
                   textTransform="uppercase"
-                  className="bg-amber-100 text-amber-800 dark:bg-purple-900/50 dark:text-purple-200"
+                  style={{ backgroundColor: 'rgba(200, 141, 141, 0.15)', color: '#c88d8d' }}
+                  className="dark:bg-[rgba(200,141,141,0.2)] dark:text-[#c88d8d]"
                 >
                   Ordyn by unveil.skin
                 </Badge>
@@ -214,7 +227,7 @@ export default function Home() {
                 <Stack as="ul" gap={3} listStyleType="none" m={0} p={0}>
                   {heroHighlights.map((highlight) => (
                     <HStack as="li" key={highlight} align="flex-start" gap={3}>
-                      <Icon as={CheckIcon} color="green.500" mt={1} boxSize={4} />
+                      <Icon as={CheckIcon} color="#c88d8d" mt={1} boxSize={4} />
                       <Text fontSize="sm" className="text-zinc-600 dark:text-zinc-300">
                         {highlight}
                       </Text>
@@ -275,7 +288,8 @@ export default function Home() {
                 h={{ base: "360px", md: "460px" }}
                 w="full"
                 maxW="360px"
-                className="bg-gradient-to-br from-amber-100 via-white to-white dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900"
+                style={{ background: 'linear-gradient(to bottom right, rgba(200, 141, 141, 0.1), white, white)' }}
+                className="dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900"
                 boxShadow="0px 40px 80px -40px rgba(15, 23, 42, 0.35)"
               >
                 <Image
@@ -296,7 +310,8 @@ export default function Home() {
                 overflow="hidden"
                 w={{ base: "160px", sm: "200px" }}
                 h={{ base: "160px", sm: "200px" }}
-                className="bg-gradient-to-tr from-white to-amber-50 dark:from-zinc-950 dark:to-zinc-900"
+                style={{ background: 'linear-gradient(to top right, white, rgba(200, 141, 141, 0.05))' }}
+                className="dark:from-zinc-950 dark:to-zinc-900"
                 boxShadow="0px 24px 50px -30px rgba(15, 23, 42, 0.35)"
                 variants={floatInPlace}
                 animate="animate"
@@ -460,7 +475,7 @@ export default function Home() {
                   <Stack as="ul" gap={3} listStyleType="none" m={0} p={0}>
                     {product.benefits.map((benefit) => (
                       <HStack as="li" key={benefit} align="flex-start" gap={3}>
-                        <Icon as={CheckIcon} color="green.500" mt={1} boxSize={4} />
+                        <Icon as={CheckIcon} color="#c88d8d" mt={1} boxSize={4} />
                         <Text fontSize="sm" className="text-zinc-600 dark:text-zinc-300">
                           {benefit}
                         </Text>
@@ -536,9 +551,14 @@ export default function Home() {
         <Container maxW="7xl" px={{ base: 4, md: 6 }}>
           <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 8, md: 10 }}>
             <Stack gap={3}>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" className="text-black dark:text-white">
-                unveil<Text as="span" className="text-zinc-400 dark:text-zinc-600">.skin</Text>
-              </Heading>
+              <Image
+                src={logoSrc}
+                alt="unveil.skin"
+                width={180}
+                height={53}
+                style={{ height: '24px', width: 'auto' }}
+                className="h-6 w-auto"
+              />
               <Text fontSize="sm" className="text-zinc-600 dark:text-zinc-400">
                 Formulated and crafted in India. Dermatologist-guided, clinically vetted, and mindful of the planet.
               </Text>

@@ -18,6 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, InfoOutlineIcon, WarningIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -90,29 +92,29 @@ const MotionGrid = motion(Grid);
 const MotionStack = motion(Stack);
 
 export default function SunscreenPage() {
+  const [logoSrc, setLogoSrc] = useState("/Logo.svg"); // Default to light mode for SSR
+  const resolvedLogoSrc = useColorModeValue("/Logo.svg", "/Logo_Dark.svg");
+  
+  useEffect(() => {
+    // Update logo after hydration to match client theme
+    setLogoSrc(resolvedLogoSrc);
+  }, [resolvedLogoSrc]);
+  
   return (
     <Box minH="100vh" bg="white" _dark={{ bg: "black" }}>
       {/* Header */}
       <Box as="header" borderBottom="1px" borderColor="gray.200" _dark={{ borderColor: "gray.800" }}>
         <Container maxW="7xl" px={6} py={6}>
           <Link href="/">
-            <VStack align="start" gap={1}>
-              <Heading
-                as="h1"
-                fontSize="2xl"
-                fontWeight="bold"
-                letterSpacing="tight"
-                color="black"
-                _dark={{ color: "white" }}
-              >
-                unveil<Text as="span" color="gray.500" _dark={{ color: "gray.500" }}>
-                  .skin
-                </Text>
-              </Heading>
-              <Text fontSize="sm" color="gray.600" _dark={{ color: "gray.200" }}>
-                Unveil Your Real Skin
-              </Text>
-            </VStack>
+            <Image
+              src={logoSrc}
+              alt="unveil.skin"
+              width={180}
+              height={53}
+              priority
+              style={{ height: '32px', width: 'auto' }}
+              className="h-8 w-auto"
+            />
           </Link>
         </Container>
       </Box>
@@ -304,7 +306,7 @@ export default function SunscreenPage() {
                 <Stack as="ul" gap={3} listStyleType="none" m={0} p={0}>
                   {dermNotes.map((note) => (
                     <HStack as="li" key={note} align="flex-start" gap={3}>
-                      <Icon as={CheckIcon} color="green.500" mt={1} boxSize={4} />
+                      <Icon as={CheckIcon} color="#c88d8d" mt={1} boxSize={4} />
                       <Text fontSize="sm" color="gray.700" _dark={{ color: "gray.200" }}>
                         {note}
                       </Text>

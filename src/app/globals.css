@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-accent: #c88d8d;
+  --brand-accent-light: rgba(200, 141, 141, 0.15);
+  --brand-accent-lighter: rgba(200, 141, 141, 0.05);
 }
 
 @theme inline {

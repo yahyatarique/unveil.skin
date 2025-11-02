@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: "unveil.skin | Unveil Your Real Skin",
   description:
     "Meet ORDYN by unveil.skin: dermatologist-formulated soap bar and daily sunscreen that reveal your real skin with gentle clarity and invisible protection.",
+  icons: {
+    icon: "/Icon.svg",
+    shortcut: "/Icon.svg",
+    apple: "/Icon.svg",
+  },
 };
 
 export default function RootLayout({
