@@ -1,5 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Grid,
+} from "@chakra-ui/react";
 
 export const metadata = {
   title: "Ordyn Soap Bar - unveil.skin",
@@ -8,122 +17,185 @@ export const metadata = {
 
 export default function SoapBarPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-black dark:via-zinc-950 dark:to-zinc-900">
+    <Box minH="100vh" bg="white" _dark={{ bg: "black" }}>
       {/* Header */}
-      <header className="border-b border-zinc-200 dark:border-zinc-800">
-        <div className="mx-auto max-w-7xl px-6 py-6">
-          <Link href="/" className="inline-block">
-            <h1 className="text-2xl font-bold tracking-tight text-black dark:text-white">
-              unveil<span className="text-zinc-400 dark:text-zinc-600">.skin</span>
-            </h1>
+      <Box as="header" borderBottom="1px" borderColor="gray.200" _dark={{ borderColor: "gray.800" }}>
+        <Container maxW="7xl" px={6} py={6}>
+          <Link href="/">
+            <VStack align="start" spacing={1}>
+              <Heading
+                as="h1"
+                fontSize="2xl"
+                fontWeight="bold"
+                letterSpacing="tight"
+                color="black"
+                _dark={{ color: "white" }}
+              >
+                unveil<Text as="span" color="gray.500" _dark={{ color: "gray.500" }}>
+                  .skin
+                </Text>
+              </Heading>
+              <Text fontSize="sm" color="gray.600" _dark={{ color: "gray.200" }}>
+                Everyday care, quietly excellent
+              </Text>
+            </VStack>
           </Link>
-        </div>
-      </header>
+        </Container>
+      </Box>
 
       {/* Product Content */}
-      <main className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+      <Box as="main" maxW="7xl" mx="auto" px={6} py={{ base: 12, md: 16 }}>
         {/* Back Link */}
-        <Link
-          href="/"
-          className="mb-8 inline-flex items-center text-sm text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-        >
-          <svg
-            className="mr-2 h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <Link href="/">
+          <HStack
+            mb={8}
+            spacing={2}
+            color="gray.700"
+            _dark={{ color: "gray.300" }}
+            _hover={{ color: "black", _dark: { color: "white" } }}
+            transition="color 0.2s"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Back to products
+            <Box as="svg" width={4} height={4} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </Box>
+            <Text fontSize="sm">Back to products</Text>
+          </HStack>
         </Link>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+        <Grid
+          templateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }}
+          gap={{ base: 12, lg: 16 }}
+        >
           {/* Product Image */}
-          <div className="relative aspect-square overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900">
+          <Box
+            position="relative"
+            aspectRatio={1}
+            overflow="hidden"
+            borderRadius="lg"
+            bg="gray.50"
+            _dark={{ bg: "gray.900" }}
+          >
             <Image
               src="/Soap_bar.png"
               alt="Ordyn soap bar"
               fill
-              className="object-cover"
+              style={{ objectFit: "cover" }}
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
             />
-          </div>
+          </Box>
 
           {/* Product Details */}
-          <div className="flex flex-col justify-center">
-            <div className="mb-4">
-              <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+          <VStack align="stretch" justify="center" spacing={6}>
+            <Box>
+              <Text fontSize="sm" fontWeight="medium" color="gray.600" _dark={{ color: "gray.400" }}>
                 ORDYN
-              </span>
-              <h1 className="mt-2 text-4xl font-bold tracking-tight text-black dark:text-white sm:text-5xl">
+              </Text>
+              <Heading
+                as="h1"
+                mt={2}
+                fontSize={{ base: "4xl", sm: "5xl" }}
+                fontWeight="bold"
+                letterSpacing="tight"
+                color="black"
+                _dark={{ color: "white" }}
+              >
                 Soap Bar
-              </h1>
-            </div>
+              </Heading>
+            </Box>
 
-            <p className="mb-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+            <Text fontSize="lg" lineHeight={8} color="gray.600" _dark={{ color: "gray.200" }}>
               Gentle, fragrance-light cleanse for everyday skin. No fuss. No film. Just clean.
-            </p>
+            </Text>
 
             {/* Features */}
-            <div className="mb-8 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
-                <div>
-                  <h3 className="font-medium text-black dark:text-white">
+            <VStack align="stretch" spacing={4} mb={8}>
+              <HStack align="start" spacing={3}>
+                <Box
+                  mt={1.5}
+                  h={1.5}
+                  w={1.5}
+                  borderRadius="full"
+                  className="bg-zinc-400 dark:bg-zinc-600"
+                />
+                <Box>
+                  <Heading as="h3" fontSize="md" fontWeight="medium" color="black" _dark={{ color: "white" }}>
                     Gentle formulation
-                  </h3>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                  </Heading>
+                  <Text mt={1} fontSize="sm" color="gray.600" _dark={{ color: "gray.200" }}>
                     Formulated for daily use without stripping your skin&apos;s natural balance.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
-                <div>
-                  <h3 className="font-medium text-black dark:text-white">
+                  </Text>
+                </Box>
+              </HStack>
+              <HStack align="start" spacing={3}>
+                <Box
+                  mt={1.5}
+                  h={1.5}
+                  w={1.5}
+                  borderRadius="full"
+                  className="bg-zinc-400 dark:bg-zinc-600"
+                />
+                <Box>
+                  <Heading as="h3" fontSize="md" fontWeight="medium" color="black" _dark={{ color: "white" }}>
                     Fragrance-light
-                  </h3>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                  </Heading>
+                  <Text mt={1} fontSize="sm" color="gray.700" _dark={{ color: "gray.300" }}>
                     Subtle, natural scent that won&apos;t overwhelm your senses.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
-                <div>
-                  <h3 className="font-medium text-black dark:text-white">
+                  </Text>
+                </Box>
+              </HStack>
+              <HStack align="start" spacing={3}>
+                <Box
+                  mt={1.5}
+                  h={1.5}
+                  w={1.5}
+                  borderRadius="full"
+                  className="bg-zinc-400 dark:bg-zinc-600"
+                />
+                <Box>
+                  <Heading as="h3" fontSize="md" fontWeight="medium" color="black" _dark={{ color: "white" }}>
                     No residue
-                  </h3>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                  </Heading>
+                  <Text mt={1} fontSize="sm" color="gray.700" _dark={{ color: "gray.300" }}>
                     Rinses clean without leaving any film or sticky feeling behind.
-                  </p>
-                </div>
-              </div>
-            </div>
+                  </Text>
+                </Box>
+              </HStack>
+            </VStack>
 
             {/* Coming Soon Notice */}
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-2 w-2 animate-pulse rounded-full bg-zinc-400 dark:bg-zinc-600" />
-                <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <Box
+              borderRadius="lg"
+              border="1px"
+              borderColor="gray.200"
+              bg="gray.50"
+              _dark={{ borderColor: "gray.800", bg: "gray.900" }}
+              p={6}
+            >
+              <HStack spacing={2} mb={2}>
+                <Box
+                  h={2}
+                  w={2}
+                  borderRadius="full"
+                  className="bg-zinc-400 dark:bg-zinc-600 animate-pulse"
+                />
+                <Text fontSize="sm" fontWeight="medium" color="gray.600" _dark={{ color: "gray.200" }}>
                   Coming soon
-                </span>
-              </div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-500">
+                </Text>
+              </HStack>
+              <Text fontSize="sm" color="gray.500" _dark={{ color: "gray.300" }}>
                 We&apos;re putting the finishing touches on ORDYN. Available in a few months.
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+              </Text>
+            </Box>
+          </VStack>
+        </Grid>
+      </Box>
+    </Box>
   );
 }
