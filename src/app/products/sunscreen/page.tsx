@@ -145,7 +145,7 @@ export default function SunscreenPage() {
                 color="black"
                 _dark={{ color: "white" }}
               >
-                ☀️ Daily Sunscreen
+                Daily Sunscreen
               </Heading>
             </Box>
 

@@ -145,7 +145,7 @@ export default function SoapBarPage() {
                 color="black"
                 _dark={{ color: "white" }}
               >
-                ?? Soap Bar
+                Soap Bar
               </Heading>
             </Box>
 
