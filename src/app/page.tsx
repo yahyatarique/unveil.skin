@@ -96,11 +96,11 @@ export default function Home() {
             <Image
               src={logoSrc}
               alt="unveil.skin"
-              width={180}
-              height={53}
+              width={360}
+              height={106}
               priority
-              style={{ height: '32px', width: 'auto' }}
-              className="h-8 w-auto"
+              style={{ height: '64px', width: 'auto' }}
+              className="h-16 w-auto"
             />
           </Link>
         </Container>
