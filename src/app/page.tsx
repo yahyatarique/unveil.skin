@@ -86,11 +86,11 @@ const productCards = [
     alt: "Ordyn soap bar",
     ribbon: "Clarifying Cleanse",
     summary:
-      "Amino-acid surfactants may help lift buildup while niacinamide and a micro-dose brightening complex may help fade dullness without disrupting your barrier.",
+      "A gentle, low-foam cleanser powered by amino-acid surfactants to lift buildup without stripping your skin. Infused with niacinamide and a micro-dose brightening complex to reveal clearer, more balanced skin.",
     benefits: [
-      "May help balance skin flora with amino-protein base and prebiotic humectants",
-      "May help refine tone with niacinamide + hydroquinone micro-dose complex",
-      "May help cool and comfort with glycerin, aloe, and vitamin B5",
+      "Balances skin flora with amino-protein base & prebiotic humectants",
+      "Refines tone with niacinamide + hydroquinone micro-dose complex",
+      "Cools and comforts with glycerin, aloe & vitamin B5",
     ],
     feel: "Low-foam, cushiony lather",
   },
@@ -456,14 +456,24 @@ export default function Home() {
                 transition={{ duration: 0.35 }}
               >
                 <Box position="relative" h={{ base: "320px", md: "380px" }}>
-                  <Image
-                    src={product.image}
-                    alt={product.alt}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                    priority={index === 0}
-                  />
+                  <Box
+                    position="relative"
+                    h="full"
+                    w="full"
+                    borderRadius={index === 0 ? "3xl" : "none"}
+                    overflow="hidden"
+                    boxShadow={index === 0 ? "0px 8px 24px -8px rgba(0, 0, 0, 0.15)" : "none"}
+                    className={index === 0 ? "bg-gradient-to-br from-zinc-50/50 to-white/30" : ""}
+                  >
+                    <Image
+                      src={product.image}
+                      alt={product.alt}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 768px) 100vw, 45vw"
+                      priority={index === 0}
+                    />
+                  </Box>
                   <Badge
                     position="absolute"
                     top={5}
@@ -478,28 +488,35 @@ export default function Home() {
                     {product.ribbon}
                   </Badge>
                 </Box>
-                <Stack p={{ base: 6, md: 8 }} gap={5}>
-                  <Stack gap={2}>
+                <Stack p={{ base: 6, md: 8 }} gap={index === 0 ? 6 : 5}>
+                  <Stack gap={index === 0 ? 4 : 2}>
                     <Heading as="h3" fontSize={{ base: "2xl", md: "2.5xl" }} fontWeight="semibold" className="text-black dark:text-white">
                       {product.name}
                     </Heading>
-                    <Text fontSize="sm" lineHeight="1.7" className="text-zinc-600 dark:text-zinc-300">
+                    <Text fontSize="sm" lineHeight="1.7" fontWeight={index === 0 ? "medium" : "normal"} className="text-zinc-600 dark:text-zinc-300">
                       {product.summary}
                     </Text>
                   </Stack>
-                  <Stack as="ul" gap={3} listStyleType="none" m={0} p={0}>
-                    {product.benefits.map((benefit) => (
-                      <HStack as="li" key={benefit} align="flex-start" gap={3}>
-                        <Icon as={CheckIcon} color="#c88d8d" mt={1} boxSize={4} />
-                        <Text fontSize="sm" className="text-zinc-600 dark:text-zinc-300">
-                          {benefit}
-                        </Text>
-                      </HStack>
-                    ))}
+                  <Stack gap={index === 0 ? 4 : 3}>
+                    {index === 0 && (
+                      <Text fontSize="xs" fontWeight="semibold" letterSpacing="wider" textTransform="uppercase" className="text-zinc-500 dark:text-zinc-400">
+                        Benefits
+                      </Text>
+                    )}
+                    <Stack as="ul" gap={3} listStyleType="none" m={0} p={0}>
+                      {product.benefits.map((benefit) => (
+                        <HStack as="li" key={benefit} align="flex-start" gap={3}>
+                          <Icon as={CheckIcon} color={index === 0 ? "#b28d8d" : "#c88d8d"} mt={1} boxSize={4} />
+                          <Text fontSize="sm" fontWeight={index === 0 ? "medium" : "normal"} className="text-zinc-600 dark:text-zinc-300">
+                            {benefit}
+                          </Text>
+                        </HStack>
+                      ))}
+                    </Stack>
                   </Stack>
                   <Box>
-                    <Text fontSize="xs" letterSpacing="wider" textTransform="uppercase" className="text-zinc-400 dark:text-zinc-500">
-                      How it feels
+                    <Text fontSize="xs" fontWeight="semibold" letterSpacing="wider" textTransform="uppercase" className="text-zinc-400 dark:text-zinc-500">
+                      {index === 0 ? "Texture" : "How it feels"}
                     </Text>
                     <Text fontSize="sm" fontWeight="medium" className="text-zinc-700 dark:text-zinc-200">
                       {product.feel}
